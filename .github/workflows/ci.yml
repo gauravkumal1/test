@@ -38,6 +38,13 @@ jobs:
       run: |
         echo "POSTGRES_DB_CONNECTION_URL=postgres://postgres:postgres@localhost:5432/test_db" >> $GITHUB_ENV
 
+    - name: Ensure readFile.txt Exists
+      run: |
+        if [ ! -f ./readFile.txt ]; then
+          echo "Creating readFile.txt for tests..."
+          echo "This is a test file." > ./readFile.txt
+        fi
+
     - name: Run Tests
       env:
         POSTGRES_DB_CONNECTION_URL: ${{ env.POSTGRES_DB_CONNECTION_URL }}
