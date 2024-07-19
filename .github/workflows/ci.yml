@@ -34,12 +34,13 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # - name: Run Linter
-    #   run: npm run lint
+    - name: Set up Environment Variables
+      run: |
+        echo "POSTGRES_DB_CONNECTION_URL=postgres://postgres:postgres@localhost:5432/test_db" >> $GITHUB_ENV
 
     - name: Run Tests
       env:
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+        POSTGRES_DB_CONNECTION_URL: ${{ env.POSTGRES_DB_CONNECTION_URL }}
       run: npm test
 
     - name: Build Application
